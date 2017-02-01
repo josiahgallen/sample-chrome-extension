@@ -21,9 +21,7 @@
   },
   "permissions": [
       "background",
-      "tabs",
-      "webNavigation",
-      "*://*/*"
+      "tabs"
   ],
   "icons": {
     "16": "small.png",
