@@ -1,7 +1,6 @@
 console.log('hello content');
 
 chrome.runtime.onMessage.addListener(function(msg, sender) {
-	console.log(msg, sender);
 	runWalker(msg);
 })
 
@@ -18,4 +17,14 @@ function runWalker(searchWord) {
 
 function matchWord(searchWord, textNode) {
 	return textNode.indexOf(searchWord)
+}
+
+
+function createReplacementText(matchIndex, searchWord) {
+	var textContainer = document.creatElement('span');
+	var highlightedWord = document.creatElement('span');
+}
+
+function replaceTextNode() {
+
 }
