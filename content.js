@@ -15,13 +15,13 @@ function runWalker(firstRun, searchWord) {
 	}, false);
 
 	while (walker.nextNode()) {
-		nodes.push(walker.currentNode)
+		nodes.push(walker.currentNode);
 	}
 
 	nodes.forEach(function(node) {
 		var addThis = replaceTextNode(node, searchWord);
 		node.parentNode.replaceChild(addThis.what, node.splitText(addThis.where));
-	})
+	});
 }
 
 function matchWord(searchWord, textNode) {
