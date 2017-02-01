@@ -1,14 +1,18 @@
-chrome.runtime.onMessage.addListener(function(msg, sender) {
-	runWalker(true, msg);
+chrome.runtime.onMessage.addListener(function(msg) {
+	var matches = runWalker(msg);
+	chrome.extension.sendMessage(matches);
 })
 
-function runWalker(firstRun, searchWord) {
+function runWalker(searchWord) {
 	var nodes = [];
 	var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
 		var foundWordIndex = matchWord(searchWord, node.textContent);
 		if(foundWordIndex !== -1) {
 			return NodeFilter.FILTER_ACCEPT;
 		} else {
+			if(node.parentNode.classList.contains('match')) {
+				node.parentNode.classList.remove('match');
+			}
 			return NodeFilter.FILTER_SKIP;
 		}
 
@@ -22,6 +26,7 @@ function runWalker(firstRun, searchWord) {
 		var addThis = replaceTextNode(node, searchWord);
 		node.parentNode.replaceChild(addThis.what, node.splitText(addThis.where));
 	});
+	return nodes.length;
 }
 
 function matchWord(searchWord, textNode) {
